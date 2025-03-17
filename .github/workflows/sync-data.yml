@@ -39,14 +39,8 @@ jobs:
       #     git config --global user.name 'github-actions[bot]'
       #     git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-      - name: List script
-        run: |
-          pushd ${{ env.SRC_NAME }} && 
-          ls -al && ls -l scripts-douban/run-top.sh &&
-          popd
-
       - name: Run script imdb
-        if: github.event.schedule == '5 5 * * *'
+        # if: github.event.schedule == '5 5 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts-douban/run-top.sh imdb &&
@@ -66,6 +60,13 @@ jobs:
           bash scripts-douban/run-top.sh tmdb &&
           popd
 
+      - name: List script
+        run: |
+          pushd ${{ env.SRC_NAME }} && 
+          ls -al && ls -l scripts-douban/run-top.sh &&
+          echo "json files = $(ls **/*.json | wc -l)" &&
+          popd
+
       - name: Git auto commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -75,4 +76,4 @@ jobs:
           commit_message: Automated update by github action
           # commit_options: '--no-verify --signoff'
           push_options: "--force"
-          file_pattern: "**/*.json"
+          file_pattern: "*.json"
