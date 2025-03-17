@@ -47,14 +47,14 @@ jobs:
           popd
 
       - name: Run script maoyan
-        # if: github.event.schedule == '10 10 * * *'
+        if: github.event.schedule == '10 10 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts-douban/run-top.sh maoyan &&
           popd
 
       - name: Run script tmdb
-        if: github.event.schedule == '8 18 * * *'
+        # if: github.event.schedule == '8 18 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts-douban/run-top.sh tmdb &&
