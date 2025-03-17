@@ -1,9 +1,9 @@
-name: sync data
+name: Update movie data
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   schedule:
     - cron: "5 5 * * *"
     - cron: "8 18 * * *"
@@ -60,12 +60,12 @@ jobs:
           bash scripts-douban/run-top.sh tmdb &&
           popd
 
-      - name: List script
-        run: |
-          pushd ${{ env.SRC_NAME }} && 
-          # ls -al && ls -l scripts-douban/run-top.sh &&
-          echo "json files = $(ls **/*.json | wc -l)" &&
-          popd
+      # - name: List script
+      #   run: |
+      #     pushd ${{ env.SRC_NAME }} && 
+      #     ls -al && ls -l scripts-douban/run-top.sh &&
+      #     echo "json files = $(ls **/*.json | wc -l)"
+      #     popd
 
       - name: Git auto commit
         uses: stefanzweifel/git-auto-commit-action@v5
