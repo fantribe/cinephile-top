@@ -54,7 +54,7 @@ jobs:
           popd
 
       - name: Run script tmdb
-        # if: github.event.schedule == '8 18 * * *'
+        if: github.event.schedule == '8 18 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts-douban/run-top.sh tmdb &&
@@ -63,7 +63,7 @@ jobs:
       - name: List script
         run: |
           pushd ${{ env.SRC_NAME }} && 
-          ls -al && ls -l scripts-douban/run-top.sh &&
+          # ls -al && ls -l scripts-douban/run-top.sh &&
           echo "json files = $(ls **/*.json | wc -l)" &&
           popd
 
