@@ -1,13 +1,13 @@
 name: Update movie data
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   schedule:
-    - cron: "5 5 * * *"
-    - cron: "8 18 * * *"
-    - cron: "10 10 * * *"
+    - cron: "0 2,8 * * *"
+    - cron: "0 4,10 * * *"
+    - cron: "0 6,12 * * *"
 
 jobs:
   process:
@@ -39,31 +39,31 @@ jobs:
       #     git config --global user.name 'github-actions[bot]'
       #     git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-      - name: Run script imdb
-        if: github.event.schedule == '5 5 * * *'
+      - name: Run script maoyan
+        if: github.event.schedule == '0 2,8 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
-          bash scripts-douban/run-top.sh imdb &&
+          bash scripts/run-top.sh maoyan &&
           popd
 
-      - name: Run script maoyan
-        if: github.event.schedule == '10 10 * * *'
+      - name: Run script imdb
+        if: github.event.schedule == '0 4,10 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
-          bash scripts-douban/run-top.sh maoyan &&
+          bash scripts/run-top.sh imdb &&
           popd
 
       - name: Run script tmdb
-        if: github.event.schedule == '8 18 * * *'
+        if: github.event.schedule == '0 6,12 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
-          bash scripts-douban/run-top.sh tmdb &&
+          bash scripts/run-top.sh tmdb &&
           popd
 
       # - name: List script
       #   run: |
       #     pushd ${{ env.SRC_NAME }} && 
-      #     ls -al && ls -l scripts-douban/run-top.sh &&
+      #     ls -al && ls -l scripts/run-top.sh &&
       #     echo "json files = $(ls **/*.json | wc -l)"
       #     popd
 
